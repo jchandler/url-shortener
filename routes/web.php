@@ -11,6 +11,5 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'UrlFormController@form')->name('url.form');
+Route::post('/', 'UrlFormController@save')->name('url.save');
