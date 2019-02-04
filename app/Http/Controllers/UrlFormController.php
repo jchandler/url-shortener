@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\UrlFormRequest;
+use App\Url;
 
 class UrlFormController extends Controller
 {
@@ -25,10 +26,15 @@ class UrlFormController extends Controller
           flash('This URL does not seem to be active. Please check it.')->error();
         } else {
           // Everything looks good - save to db
-          flash('Saved!');
+          $url = new Url;
+          $url->long_url = $longUrl;
+          $url->short_url = substr(md5(rand()), 0, 7);
+          $url->save();
+
+          flash('Saved! You can now use the URL "https://short.io/' . $url->short_url . '" to access your submitted URL.');
         }
       } catch (\Exception $e) {
-        flash('This URL does not seem to be active. Please check it.')->error();
+        flash('An error has occurred. Please try again.')->error();
       }
 
       return redirect()->route('url.form');
