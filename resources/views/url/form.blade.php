@@ -8,6 +8,7 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
         <!-- Styles -->
         <style>
@@ -61,6 +62,23 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
+
+            .form-control {
+              padding: 10px 10px;
+              font-size: 16px;
+            }
+
+            .btn {
+              background-color: #AAAAAA;
+              border: none;
+              color: white;
+              padding: 15px 15px;
+              text-align: center;
+              text-decoration: none;
+              display: inline-block;
+              font-size: 16px;
+              margin-top: 40px;
+            }
         </style>
     </head>
     <body>
@@ -69,6 +87,14 @@
                 <div class="title m-b-md">
                     URL Shortener
                 </div>
+                @if ($errors->any())
+                <div class="alert alert-danger">
+                    @foreach ($errors->all() as $error)
+                    <p>{{$error}}</p>
+                    @endforeach
+                </div>
+                @endif
+                <div>@include('flash::message')</div>
 
                 {!! Form::open(['route' => 'url.save']) !!}
                 <div class="form-group">
